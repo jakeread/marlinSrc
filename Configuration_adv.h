@@ -616,6 +616,7 @@
 #if ENABLED(AUTO_AXIS_SQUARE_4POINT)
 
   #define AAS_PRB_HGHT -2.75
+  #define AAS_CLR_HGHT 10
 
   #define AAS_PRB_ABOUT 3
 

@@ -4588,42 +4588,70 @@ inline void gcode_G28() {
 #if ENABLED(AUTO_AXIS_SQUARE_4POINT) // compiler will ignore if not enabled.. nice
 
 inline void gcode_G39() {
-   SERIAL_ECHOLNPGM("> 4-point axis squaring");
-   
-   feedrate_mm_s = 50;
+  
+  SERIAL_ECHOLNPGM("> 4-point axis squaring");
+  
+  feedrate_mm_s = 50;
 
-   float prbLength = AAS_PRB_ABOUT;
+  float prbLength = AAS_PRB_ABOUT;
+  float prbHeight = AAS_PRB_HGHT;
+  float clrHeight = AAS_CLR_HGHT;
      
-   float ypts[2][3] = { {AAS_PT_Y1_X, AAS_PT_Y1_Y, AAS_PRB_HGHT},
-                        {AAS_PT_Y2_X, AAS_PT_Y2_Y, AAS_PRB_HGHT}};
-   float xpts[2][3] = { {AAS_PT_X1_X, AAS_PT_X1_Y, AAS_PRB_HGHT},
-                        {AAS_PT_X2_X, AAS_PT_X2_Y, AAS_PRB_HGHT}};
+  float prbpts[4][2] = {  {AAS_PT_Y1_X, AAS_PT_Y1_Y},
+                          {AAS_PT_Y2_X, AAS_PT_Y2_Y},
+                          {AAS_PT_X1_X, AAS_PT_X1_Y},
+                          {AAS_PT_X2_X, AAS_PT_X2_Y} };
+                          
+  float prbdpts[4][2];
 
-   float prbypts[2][2];
-   float prbxpts[2][2];
+  for(int i = 0; i < 4; i++){// for all 4 prb pts
+    destination[Z_AXIS] = clrHeight; // go to clearance height
+    feedrate_mm_s = 200; // running speed
+    prepare_move_to_destination();
+    stepper.synchronize();
+    // going to pre-probe pt
+    if(i < 2){
+      destination[X_AXIS] = prbpts[i][0] - prbLength;
+      destination[Y_AXIS] = prbpts[i][1];
+    } else {
+      destination[X_AXIS] = prbpts[i][0];
+      destination[Y_AXIS] = prbpts[i][1] - prbLength;
+    }
+    prepare_move_to_destination();
+    stepper.synchronize();
+    feedrate_mm_s = 10;
+    destination[Z_AXIS] = prbHeight;
+    prepare_move_to_destination();
+    stepper.synchronize();
+    // at pre-probe height, location
+    
+    if(i < 2){
+      destination[X_AXIS] = prbpts[i][0] + prbLength;
+      destination[Y_AXIS] = prbpts[i][1];
+    } else {
+      destination[X_AXIS] = prbpts[i][0];
+      destination[Y_AXIS] = prbpts[i][1] + prbLength;
+    }
+    
+    setup_for_endstop_or_probe_move(); // setup ?
+    if (!G38_run_probe()) {
+      SERIAL_ERROR_START;
+      SERIAL_ERRORLNPGM("Failed to reach target");
+    }
+    clean_up_after_endstop_or_probe_move(); // done?
+    
+    prbdpts[i][0] = current_position[X_AXIS];
+    prbdpts[i][1] = current_position[Y_AXIS];
+    destination[X_AXIS] = current_position[X_AXIS];
+    destination[Y_AXIS] = current_position[Y_AXIS];
+    
+  } // END 4 Probe Pts Loop
 
-   // setting up for 1st probe
-   // use do_blocking_move_to
-   destination[X_AXIS] = ypts[0][0]-prbLength;
-   destination[Y_AXIS] = ypts[0][1];
-   destination[Z_AXIS] = ypts[0][2];
-   prepare_move_to_destination();
-   stepper.synchronize();
-   // set for probe, in pre-probe position
-   // set destination for probe-and-stop
-
-   destination[X_AXIS] = ypts[0][0]+prbLength; // set new probe-to destination
-   
-   setup_for_endstop_or_probe_move(); // setup ?
-   if (!G38_run_probe()) {
-    SERIAL_ERROR_START;
-    SERIAL_ERRORLNPGM("Failed to reach target");
-   }
-   clean_up_after_endstop_or_probe_move(); // done?
-   prbypts[0][0] = current_position[X_AXIS];
-   prbypts[0][1] = current_position[Y_AXIS];
-   SERIAL_ECHOLN(prbypts[0][0]);
-   SERIAL_ECHOLN(prbypts[0][1]);
+  for(int i = 0; i<4; i++){
+    SERIAL_ECHO(prbdpts[i][0]);
+    SERIAL_ECHO(", ");
+    SERIAL_ECHOLN(prbdpts[i][1]);
+  }
 }
 
 #endif
