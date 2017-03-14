@@ -4588,7 +4588,11 @@ inline void gcode_G28() {
 #if ENABLED(AUTO_AXIS_SQUARE_4POINT) // compiler will ignore if not enabled.. nice
 
 inline void gcode_G39() {
-  
+
+  // Don't allow auto-squaring without homing first
+  // also auto-levelling should be done. not sure how to check w/o getting 'into it'
+  if (axis_unhomed_error(true, true, true)) return;
+      
   SERIAL_ECHOLNPGM("> 4-point axis squaring");
   
   feedrate_mm_s = 50;
@@ -4637,21 +4641,53 @@ inline void gcode_G39() {
     if (!G38_run_probe()) {
       SERIAL_ERROR_START;
       SERIAL_ERRORLNPGM("Failed to reach target");
+      break;
     }
     clean_up_after_endstop_or_probe_move(); // done?
     
     prbdpts[i][0] = current_position[X_AXIS];
     prbdpts[i][1] = current_position[Y_AXIS];
+    #if ENABLED(AAS_DEBUG)
+      SERIAL_ECHO(prbdpts[i][0]);
+      SERIAL_ECHO(", ");
+      SERIAL_ECHOLN(prbdpts[i][1]);
+    #endif
     destination[X_AXIS] = current_position[X_AXIS];
     destination[Y_AXIS] = current_position[Y_AXIS];
     
   } // END 4 Probe Pts Loop
 
-  for(int i = 0; i<4; i++){
-    SERIAL_ECHO(prbdpts[i][0]);
-    SERIAL_ECHO(", ");
-    SERIAL_ECHOLN(prbdpts[i][1]);
+  double yTan = atan((prbdpts[0][1]-prbdpts[1][1])/(prbdpts[0][0]-prbdpts[1][0])); // atan of  deltaY / deltaX for y-edge
+  double xTan = atan((prbdpts[2][1]-prbdpts[3][1])/(prbdpts[2][0]-prbdpts[3][0])); // atan of  deltaY / deltaX for x-edge
+
+  double measuredTheta;
+
+  if(yTan < 0 && xTan < 0){
+    measuredTheta = abs(abs(yTan)-xTan);
+  } else {
+    measuredTheta = abs(yTan-xTan);
   }
+
+  double theta = PI/2-measuredTheta;
+  planner.aas_enabled = true;
+  planner.aas_theta = theta;
+
+  #if ENABLED(AAS_DEBUG)
+    SERIAL_ECHO("yTan: ");
+    SERIAL_ECHOLN(yTan);
+    SERIAL_ECHO("xTan: ");
+    SERIAL_ECHOLN(xTan);
+    SERIAL_ECHO("measuredTheta, radians: ");
+    SERIAL_ECHOLN(measuredTheta);
+    SERIAL_ECHO("measuredTheta, degrees: ");
+    SERIAL_ECHOLN(DEGREES(measuredTheta));
+    SERIAL_ECHO("theta in function, radians: ");
+    SERIAL_ECHOLN(theta);
+    SERIAL_ECHO("theta in function, degrees: ");
+    SERIAL_ECHOLN(DEGREES(theta));
+    SERIAL_ECHO("theta planner, radians: ");
+    SERIAL_ECHOLN(planner.aas_theta);
+  #endif
 }
 
 #endif

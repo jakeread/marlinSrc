@@ -164,6 +164,11 @@ class Planner {
       static matrix_3x3 bed_level_matrix; // Transform to compensate for bed level
     #endif
 
+    #if HAS_AAS
+      static bool aas_enabled;
+      static double aas_theta;
+    #endif
+
     #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
       static float z_fade_height, inverse_z_fade_height;
     #endif
@@ -266,6 +271,12 @@ class Planner {
 
     #endif
 
+    #if HAS_AAS
+
+      static void apply_squaring(float &lx, float &ly, float &lz);
+      
+    #endif 
+
     #if ENABLED(LIN_ADVANCE)
       static void set_extruder_advance_k(const float &k) { extruder_advance_k = k; };
       static float get_extruder_advance_k() { return extruder_advance_k; };
@@ -302,6 +313,7 @@ class Planner {
     static FORCE_INLINE void buffer_line(ARG_X, ARG_Y, ARG_Z, const float &e, const float &fr_mm_s, const uint8_t extruder) {
       #if PLANNER_LEVELING && IS_CARTESIAN
         apply_leveling(lx, ly, lz);
+        apply_squaring(lx, ly, lz);
       #endif
       _buffer_line(lx, ly, lz, e, fr_mm_s, extruder);
     }
@@ -342,6 +354,7 @@ class Planner {
     static FORCE_INLINE void set_position_mm(ARG_X, ARG_Y, ARG_Z, const float &e) {
       #if PLANNER_LEVELING && IS_CARTESIAN
         apply_leveling(lx, ly, lz);
+        apply_squaring(lx, ly, lz);
       #endif
       _set_position_mm(lx, ly, lz, e);
     }

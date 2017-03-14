@@ -104,6 +104,11 @@ float Planner::min_feedrate_mm_s,
   bool Planner::abl_enabled = false; // Flag that auto bed leveling is enabled
 #endif
 
+#if HAS_AAS
+  bool Planner::aas_enabled = false;
+  double Planner::aas_theta = 0;
+#endif
+
 #if ABL_PLANAR
   matrix_3x3 Planner::bed_level_matrix; // Transform to compensate for bed level
 #endif
@@ -167,6 +172,11 @@ void Planner::init() {
   #if ABL_PLANAR
     bed_level_matrix.set_to_identity();
   #endif
+  #if HAS_AAS
+    aas_theta = 0.0;
+    aas_enabled = false;
+  #endif
+  
 }
 
 #define MINIMAL_STEP_RATE 120
@@ -540,11 +550,11 @@ void Planner::check_axes_activity() {
    * lx, ly, lz - logical (cartesian, not delta) positions in mm
    */
   void Planner::apply_leveling(float &lx, float &ly, float &lz) {
-
+    
     #if HAS_ABL
       if (!abl_enabled) return;
     #endif
-
+    
     #if ENABLED(ENABLE_LEVELING_FADE_HEIGHT)
       static float z_fade_factor = 1.0, last_raw_lz = -999.0;
       if (z_fade_height) {
@@ -641,6 +651,28 @@ void Planner::check_axes_activity() {
 
 #endif // PLANNER_LEVELING
 
+#if HAS_AAS
+
+  void Planner::apply_squaring(float &lx, float &ly, float &lz){
+    SERIAL_ECHOLN("AS: top");
+    if (!aas_enabled) return;
+    SERIAL_ECHOLN("AS: enabled");
+
+    SERIAL_ECHO("Pre tf y: ");
+    SERIAL_ECHOLN(ly);
+    ly = ly-lx*tan(aas_theta);
+    SERIAL_ECHO("Post tf y: ");
+    SERIAL_ECHOLN(ly);
+    
+    SERIAL_ECHO("Pre tf x: ");
+    SERIAL_ECHOLN(lx);
+    lx = lx/cos(aas_theta);
+    SERIAL_ECHO("Post tf x: ");
+    SERIAL_ECHOLN(lx);
+   
+  }
+  
+#endif // HAS_AAS
 /**
  * Planner::_buffer_line
  *

@@ -677,6 +677,8 @@
     #define PROBE_BED_HEIGHT abs(BACK_PROBE_BED_POSITION - (FRONT_PROBE_BED_POSITION))
   #endif
 
+  #define HAS_AAS (ENABLED(AUTO_AXIS_SQUARE_4POINT))
+
   /**
    * Buzzer/Speaker
    */

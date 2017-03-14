@@ -612,13 +612,14 @@
  */
 
 #define AUTO_AXIS_SQUARE_4POINT
+#define AAS_DEBUG
 
 #if ENABLED(AUTO_AXIS_SQUARE_4POINT)
 
-  #define AAS_PRB_HGHT -2.75
+  #define AAS_PRB_HGHT -2.95
   #define AAS_CLR_HGHT 10
 
-  #define AAS_PRB_ABOUT 3
+  #define AAS_PRB_ABOUT 7
 
   #define AAS_PT_Y1_X -8.8
   #define AAS_PT_Y1_Y 30
@@ -631,6 +632,8 @@
   
   #define AAS_PT_X2_X 180
   #define AAS_PT_X2_Y 10
+
+  #define AAS_THETA 0 // can also set this up to measure some other way, and just input measured difference here.
 
 #endif 
 
