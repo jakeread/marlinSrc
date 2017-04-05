@@ -30,6 +30,7 @@
 
 #include "MarlinConfig.h"
 
+/**
 #if ENABLED(ULTRA_LCD)
   #if ENABLED(LCD_I2C_TYPE_PCF8575)
     #include <Wire.h>
@@ -47,6 +48,7 @@
     #include <LiquidCrystal.h> // library for character LCD
   #endif
 #endif
+*/
 
 #if HAS_DIGIPOTSS
   #include <SPI.h>
