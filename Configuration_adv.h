@@ -299,7 +299,7 @@
   // Note: the first x-carriage is defined as the x-carriage which homes to the minimum endstop;
   // the second x-carriage always homes to the maximum endstop.
   #define X2_MIN_POS 0     // set minimum to ensure second x-carriage doesn't hit the parked first X-carriage
-  #define X2_MAX_POS 236.8    // set maximum to the distance between toolheads when both heads are homed
+  #define X2_MAX_POS 237.2    // set maximum to the distance between toolheads when both heads are homed // increment this up to move X2 lines left
   #define X2_HOME_DIR 1     // the second X-carriage always homes to the maximum endstop position
   #define X2_HOME_POS X2_MAX_POS // default home position is the maximum carriage position
       // However: In this mode the HOTEND_OFFSET_X value for the second extruder provides a software
@@ -616,7 +616,7 @@
 
 #if ENABLED(AUTO_AXIS_SQUARE_4POINT)
 
-  #define AAS_PRB_HGHT -2.95
+  #define AAS_PRB_HGHT -2.85
   #define AAS_CLR_HGHT 10
 
   #define AAS_PRB_ABOUT 7
@@ -625,7 +625,7 @@
   #define AAS_PT_Y1_Y 30
   
   #define AAS_PT_Y2_X -8.8
-  #define AAS_PT_Y2_Y 280
+  #define AAS_PT_Y2_Y 240
   
   #define AAS_PT_X1_X 20
   #define AAS_PT_X1_Y 10

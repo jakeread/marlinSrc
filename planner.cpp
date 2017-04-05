@@ -654,21 +654,21 @@ void Planner::check_axes_activity() {
 #if HAS_AAS
 
   void Planner::apply_squaring(float &lx, float &ly, float &lz){
-    SERIAL_ECHOLN("AS: top");
+    //SERIAL_ECHOLN("AS: top");
     if (!aas_enabled) return;
-    SERIAL_ECHOLN("AS: enabled");
+    //SERIAL_ECHOLN("AS: enabled");
 
-    SERIAL_ECHO("Pre tf y: ");
-    SERIAL_ECHOLN(ly);
+    //SERIAL_ECHO("Pre tf y: ");
+    //SERIAL_ECHOLN(ly);
     ly = ly-lx*tan(aas_theta);
-    SERIAL_ECHO("Post tf y: ");
-    SERIAL_ECHOLN(ly);
+    //SERIAL_ECHO("Post tf y: ");
+    //SERIAL_ECHOLN(ly);
     
-    SERIAL_ECHO("Pre tf x: ");
-    SERIAL_ECHOLN(lx);
+    //SERIAL_ECHO("Pre tf x: ");
+    //SERIAL_ECHOLN(lx);
     lx = lx/cos(aas_theta);
-    SERIAL_ECHO("Post tf x: ");
-    SERIAL_ECHOLN(lx);
+    //SERIAL_ECHO("Post tf x: ");
+    //SERIAL_ECHOLN(lx);
    
   }
   

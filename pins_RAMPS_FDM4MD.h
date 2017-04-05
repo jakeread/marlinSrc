@@ -194,12 +194,13 @@
 // Misc. Functions
 //
 // #define SDSS               53
-#define LED_PIN            13
+#define LED_PIN            13 
 
 // Use the RAMPS 1.4 Analog input 5 on the AUX2 connector
-#define FILWIDTH_PIN        5   // Analog Input
+#define FILWIDTH_PIN        5   // Analog Input *
 
 // define digital pin 4 for the filament runout sensor. Use the RAMPS 1.4 digital input 4 on the servos connector
+
 #define FIL_RUNOUT_PIN      4
 
 #define PS_ON_PIN          12
@@ -361,3 +362,4 @@
   #endif // NEWPANEL
 
 #endif // ULTRA_LCD
+

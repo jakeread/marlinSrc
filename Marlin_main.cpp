@@ -4639,8 +4639,7 @@ inline void gcode_G39() {
     
     setup_for_endstop_or_probe_move(); // setup ?
     if (!G38_run_probe()) {
-      SERIAL_ERROR_START;
-      SERIAL_ERRORLNPGM("Failed to reach target");
+      SERIAL_ECHOLN("Failed to reach target");
       break;
     }
     clean_up_after_endstop_or_probe_move(); // done?
@@ -4657,6 +4656,11 @@ inline void gcode_G39() {
     
   } // END 4 Probe Pts Loop
 
+  destination[Z_AXIS] = clrHeight; // go to clearance height
+  feedrate_mm_s = 200; // running speed
+  prepare_move_to_destination();
+  stepper.synchronize();
+
   double yTan = atan((prbdpts[0][1]-prbdpts[1][1])/(prbdpts[0][0]-prbdpts[1][0])); // atan of  deltaY / deltaX for y-edge
   double xTan = atan((prbdpts[2][1]-prbdpts[3][1])/(prbdpts[2][0]-prbdpts[3][0])); // atan of  deltaY / deltaX for x-edge
 
@@ -4668,7 +4672,7 @@ inline void gcode_G39() {
     measuredTheta = abs(yTan-xTan);
   }
 
-  double theta = PI/2-measuredTheta;
+  double theta = -PI/2+measuredTheta;
   planner.aas_enabled = true;
   planner.aas_theta = theta;
 

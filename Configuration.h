@@ -179,8 +179,8 @@
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
 #define HOTEND_OFFSET_X {0.0, -0.1} // (in mm) for each extruder, offset of the hotend on the X axis // does not do anything in IDEX
-#define HOTEND_OFFSET_Y {0.0, -0.5}  // (in mm) for each extruder, offset of the hotend on the Y axis
-#define HOTEND_OFFSET_Z {0.0, -0.40} // -0.5 last
+#define HOTEND_OFFSET_Y {0.0, -3.85}  // (in mm) for each extruder, offset of the hotend on the Y axis // increment this up to move X2 lines down
+#define HOTEND_OFFSET_Z {0.0, 1.35} // -0.6 last // bigger number smaller gap (watch sign) 
 
 /**
  * Select your power supply here. Use 0 if you haven't connected the PS_ON_PIN
@@ -250,8 +250,8 @@
  *
  * :{ '0': "Not used", '1':"100k / 4.7k - EPCOS", '2':"200k / 4.7k - ATC Semitec 204GT-2", '3':"Mendel-parts / 4.7k", '4':"10k !! do not use for a hotend. Bad resolution at high temp. !!", '5':"100K / 4.7k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '6':"100k / 4.7k EPCOS - Not as accurate as Table 1", '7':"100k / 4.7k Honeywell 135-104LAG-J01", '8':"100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT", '9':"100k / 4.7k GE Sensing AL03006-58.2K-97-G1", '10':"100k / 4.7k RS 198-961", '11':"100k / 4.7k beta 3950 1%", '12':"100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT (calibrated for Makibox hot bed)", '13':"100k Hisens 3950  1% up to 300°C for hotend 'Simple ONE ' & hotend 'All In ONE'", '20':"PT100 (Ultimainboard V2.x)", '51':"100k / 1k - EPCOS", '52':"200k / 1k - ATC Semitec 204GT-2", '55':"100k / 1k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '60':"100k Maker's Tool Works Kapton Bed Thermistor beta=3950", '66':"Dyze Design 4.7M High Temperature thermistor", '70':"the 100K thermistor found in the bq Hephestos 2", '71':"100k / 4.7k Honeywell 135-104LAF-J01", '147':"Pt100 / 4.7k", '1047':"Pt1000 / 4.7k", '110':"Pt100 / 1k (non-standard)", '1010':"Pt1000 / 1k (non standard)", '-3':"Thermocouple + MAX31855 (only for sensor 0)", '-2':"Thermocouple + MAX6675 (only for sensor 0)", '-1':"Thermocouple + AD595",'998':"Dummy 1", '999':"Dummy 2" }
  */
-#define TEMP_SENSOR_0 6
-#define TEMP_SENSOR_1 6
+#define TEMP_SENSOR_0 5
+#define TEMP_SENSOR_1 5
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_BED 8
@@ -278,11 +278,11 @@
 // The minimal temperature defines the temperature below which the heater will not be enabled It is used
 // to check that the wiring to the thermistor is not broken.
 // Otherwise this would lead to the heater being powered on all the time.
-#define HEATER_0_MINTEMP 2
-#define HEATER_1_MINTEMP 2
+#define HEATER_0_MINTEMP 5
+#define HEATER_1_MINTEMP 5
 #define HEATER_2_MINTEMP 2
 #define HEATER_3_MINTEMP 2
-#define BED_MINTEMP 2
+#define BED_MINTEMP 5
 
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
@@ -479,7 +479,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 200, 200, 25, 15, 15 }
+#define DEFAULT_MAX_FEEDRATE          { 166, 166, 19, 15, 15 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -487,7 +487,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 800, 800, 200, 1000, 3000 }
+#define DEFAULT_MAX_ACCELERATION      { 800, 350, 50, 1000, 1000 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -497,9 +497,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          600    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   800    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION   1200    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk (mm/s)
@@ -508,9 +508,9 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-#define DEFAULT_XJERK                 15.0
-#define DEFAULT_YJERK                 15.0
-#define DEFAULT_ZJERK                  4.0
+#define DEFAULT_XJERK                 10.0
+#define DEFAULT_YJERK                  4.0
+#define DEFAULT_ZJERK                  0.4
 #define DEFAULT_EJERK                  5.0
 
 
@@ -566,7 +566,7 @@
 //  (0,0)
 #define X_PROBE_OFFSET_FROM_EXTRUDER 0  // X offset: -left  +right  [of the nozzle]
 #define Y_PROBE_OFFSET_FROM_EXTRUDER -21  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER 2.5  // Z offset: -below +above  [the nozzle] // bigger number = bigger gap
+#define Z_PROBE_OFFSET_FROM_EXTRUDER 2.725  // Z offset: -below +above  [the nozzle] // bigger number = bigger gap
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 12000
@@ -829,7 +829,7 @@
   // 3 arbitrary points to probe.
   // A simple cross-product is used to estimate the plane of the bed.
   #define ABL_PROBE_PT_1_X -4
-  #define ABL_PROBE_PT_1_Y 260
+  #define ABL_PROBE_PT_1_Y 240
   #define ABL_PROBE_PT_2_X -4
   #define ABL_PROBE_PT_2_Y 20
   #define ABL_PROBE_PT_3_X 180
