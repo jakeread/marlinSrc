@@ -179,7 +179,7 @@
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
 #define HOTEND_OFFSET_X {0.0, -0.1} // (in mm) for each extruder, offset of the hotend on the X axis // does not do anything in IDEX
-#define HOTEND_OFFSET_Y {0.0, -3.85}  // (in mm) for each extruder, offset of the hotend on the Y axis // increment this up to move X2 lines down
+#define HOTEND_OFFSET_Y {0.0, -4.3}  // (in mm) for each extruder, offset of the hotend on the Y axis // increment this up to move X2 lines down
 #define HOTEND_OFFSET_Z {0.0, 1.35} // -0.6 last // bigger number smaller gap (watch sign) 
 
 /**

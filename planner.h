@@ -313,6 +313,8 @@ class Planner {
     static FORCE_INLINE void buffer_line(ARG_X, ARG_Y, ARG_Z, const float &e, const float &fr_mm_s, const uint8_t extruder) {
       #if PLANNER_LEVELING && IS_CARTESIAN
         apply_leveling(lx, ly, lz);
+      #endif
+      #if HAS_AAS
         apply_squaring(lx, ly, lz);
       #endif
       _buffer_line(lx, ly, lz, e, fr_mm_s, extruder);
@@ -354,6 +356,8 @@ class Planner {
     static FORCE_INLINE void set_position_mm(ARG_X, ARG_Y, ARG_Z, const float &e) {
       #if PLANNER_LEVELING && IS_CARTESIAN
         apply_leveling(lx, ly, lz);
+      #endif
+      #if HAS_AAS
         apply_squaring(lx, ly, lz);
       #endif
       _set_position_mm(lx, ly, lz, e);
