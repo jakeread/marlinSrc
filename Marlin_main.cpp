@@ -4676,6 +4676,13 @@ inline void gcode_G39() {
   planner.aas_enabled = true;
   planner.aas_theta = theta;
 
+  destination[X_AXIS] = 100;
+  destination[Y_AXIS] = 150;
+  destination[Z_AXIS] = 80;
+  feedrate_mm_s = 300;
+  prepare_move_to_destination();
+  stepper.synchronize();
+
   #if ENABLED(AAS_DEBUG)
     SERIAL_ECHO("yTan: ");
     SERIAL_ECHOLN(yTan);

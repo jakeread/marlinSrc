@@ -179,8 +179,8 @@
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
 #define HOTEND_OFFSET_X {0.0, -0.1} // (in mm) for each extruder, offset of the hotend on the X axis // does not do anything in IDEX
-#define HOTEND_OFFSET_Y {0.0, -4.3}  // (in mm) for each extruder, offset of the hotend on the Y axis // increment this up to move X2 lines down
-#define HOTEND_OFFSET_Z {0.0, 1.35} // -0.6 last // bigger number smaller gap (watch sign) 
+#define HOTEND_OFFSET_Y {0.0, -3.7}  // (in mm) for each extruder, offset of the hotend on the Y axis // increment this up to move X2 lines down
+#define HOTEND_OFFSET_Z {0.0, 1.6} // -0.6 last // bigger number smaller gap (watch sign) 
 
 /**
  * Select your power supply here. Use 0 if you haven't connected the PS_ON_PIN
@@ -488,7 +488,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 80, 329, 210, 210 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 80, 329, 185, 185 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -503,7 +503,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 600, 300, 50, 1000, 1000 }
+#define DEFAULT_MAX_ACCELERATION      { 300, 300, 60, 300, 300 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -513,7 +513,7 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_ACCELERATION          300    // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   1200    // X, Y, Z acceleration for travel (non printing) moves
 
@@ -593,14 +593,14 @@
 //  (0,0)
 #define X_PROBE_OFFSET_FROM_EXTRUDER 0  // X offset: -left  +right  [of the nozzle]
 #define Y_PROBE_OFFSET_FROM_EXTRUDER -21  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER 2.725   // Z offset: -below +above  [the nozzle] // bigger number bigger gap
+#define Z_PROBE_OFFSET_FROM_EXTRUDER 2.855   // Z offset: -below +above  [the nozzle] // bigger number bigger gap
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
-#define Z_PROBE_SPEED_FAST 1000
+#define Z_PROBE_SPEED_FAST 1400
 // Speed for the "accurate" probe of each point
-#define Z_PROBE_SPEED_SLOW 100
+#define Z_PROBE_SPEED_SLOW 175
 // Use double touch for probing
 //#define PROBE_DOUBLE_TOUCH
 
@@ -663,8 +663,8 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
+#define Z_CLEARANCE_DEPLOY_PROBE   6  // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES  2 // Z Clearance between probe points
 
 //
 // For M851 give a range for adjusting the Z probe offset
@@ -726,7 +726,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS 200
 #define Y_MAX_POS 290
-#define Z_MAX_POS 123.8
+#define Z_MAX_POS 126.8
 
 // If enabled, axes won't move below MIN_POS in response to movement commands.
 #define MIN_SOFTWARE_ENDSTOPS false
@@ -791,8 +791,8 @@
  *   leveling in steps so you can manually adjust the Z height at each grid-point.
  *   With an LCD controller the process is guided step-by-step.
  */
-#define AUTO_BED_LEVELING_3POINT
-//#define AUTO_BED_LEVELING_LINEAR
+//#define AUTO_BED_LEVELING_3POINT
+#define AUTO_BED_LEVELING_LINEAR
 //#define AUTO_BED_LEVELING_BILINEAR
 //#define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
@@ -818,10 +818,10 @@
   #define ABL_GRID_MAX_POINTS_Y ABL_GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  #define LEFT_PROBE_BED_POSITION 15
-  #define RIGHT_PROBE_BED_POSITION 170
-  #define FRONT_PROBE_BED_POSITION 20
-  #define BACK_PROBE_BED_POSITION 170
+  #define LEFT_PROBE_BED_POSITION 20
+  #define RIGHT_PROBE_BED_POSITION 180
+  #define FRONT_PROBE_BED_POSITION 30
+  #define BACK_PROBE_BED_POSITION 240
 
   // The Z probe minimum outer margin (to validate G29 parameters).
   #define MIN_PROBE_EDGE 10
@@ -850,7 +850,7 @@
   #define ABL_PROBE_PT_1_X -4
   #define ABL_PROBE_PT_1_Y 240
   #define ABL_PROBE_PT_2_X -4
-  #define ABL_PROBE_PT_2_Y 20
+  #define ABL_PROBE_PT_2_Y 30
   #define ABL_PROBE_PT_3_X 180
   #define ABL_PROBE_PT_3_Y -6
 

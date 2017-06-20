@@ -299,7 +299,7 @@
   // Note: the first x-carriage is defined as the x-carriage which homes to the minimum endstop;
   // the second x-carriage always homes to the maximum endstop.
   #define X2_MIN_POS 0     // set minimum to ensure second x-carriage doesn't hit the parked first X-carriage
-  #define X2_MAX_POS 237.6    // set maximum to the distance between toolheads when both heads are homed // increment up to move X2 lines right
+  #define X2_MAX_POS 238.1    // set maximum to the distance between toolheads when both heads are homed // increment up to move X2 lines left
   #define X2_HOME_DIR 1     // the second X-carriage always homes to the maximum endstop position
   #define X2_HOME_POS X2_MAX_POS // default home position is the maximum carriage position
       // However: In this mode the HOTEND_OFFSET_X value for the second extruder provides a software
@@ -588,10 +588,10 @@
  * K=0 means advance disabled.
  * See Marlin documentation for calibration instructions.
  */
-//#define LIN_ADVANCE
+#define LIN_ADVANCE
 
 #if ENABLED(LIN_ADVANCE)
-  #define LIN_ADVANCE_K 75
+  #define LIN_ADVANCE_K 45
 
   /**
    * Some Slicers produce Gcode with randomly jumping extrusion widths occasionally.
@@ -670,13 +670,13 @@
 
 #if ENABLED(AUTO_AXIS_SQUARE_4POINT)
 
-  #define AAS_PRB_HGHT -2.85
-  #define AAS_CLR_HGHT 10
+  #define AAS_PRB_HGHT -3
+  #define AAS_CLR_HGHT 5
 
-  #define AAS_PRB_ABOUT 7
+  #define AAS_PRB_ABOUT 5
 
   #define AAS_PT_Y1_X -8.8
-  #define AAS_PT_Y1_Y 30
+  #define AAS_PT_Y1_Y 50
   
   #define AAS_PT_Y2_X -8.8
   #define AAS_PT_Y2_Y 240
