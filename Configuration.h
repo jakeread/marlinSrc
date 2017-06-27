@@ -288,11 +288,11 @@
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
 // You should use MINTEMP for thermistor short/failure protection.
-#define HEATER_0_MAXTEMP 275
-#define HEATER_1_MAXTEMP 275
-#define HEATER_2_MAXTEMP 275
-#define HEATER_3_MAXTEMP 275
-#define BED_MAXTEMP 190
+#define HEATER_0_MAXTEMP 290
+#define HEATER_1_MAXTEMP 290
+#define HEATER_2_MAXTEMP 290
+#define HEATER_3_MAXTEMP 290
+#define BED_MAXTEMP 90
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -495,7 +495,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 166, 166, 19, 15, 15 }
+#define DEFAULT_MAX_FEEDRATE          { 130, 130, 20, 50, 50 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -503,7 +503,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 300, 300, 60, 300, 300 }
+#define DEFAULT_MAX_ACCELERATION      { 400, 400, 75, 150, 150 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -513,7 +513,7 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          300    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_ACCELERATION          350    // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  1000    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   1200    // X, Y, Z acceleration for travel (non printing) moves
 
@@ -525,8 +525,8 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-#define DEFAULT_XJERK                 10.0
-#define DEFAULT_YJERK                  4.0
+#define DEFAULT_XJERK                  2.0
+#define DEFAULT_YJERK                  2.0
 #define DEFAULT_ZJERK                  0.4
 #define DEFAULT_EJERK                  5.0
 
@@ -593,14 +593,14 @@
 //  (0,0)
 #define X_PROBE_OFFSET_FROM_EXTRUDER 0  // X offset: -left  +right  [of the nozzle]
 #define Y_PROBE_OFFSET_FROM_EXTRUDER -21  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER 2.855   // Z offset: -below +above  [the nozzle] // bigger number bigger gap
+#define Z_PROBE_OFFSET_FROM_EXTRUDER 2.805   // Z offset: -below +above  [the nozzle] // bigger number bigger gap
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
 #define Z_PROBE_SPEED_FAST 1400
 // Speed for the "accurate" probe of each point
-#define Z_PROBE_SPEED_SLOW 175
+#define Z_PROBE_SPEED_SLOW 200
 // Use double touch for probing
 //#define PROBE_DOUBLE_TOUCH
 
@@ -664,7 +664,7 @@
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE   6  // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  2 // Z Clearance between probe points
+#define Z_CLEARANCE_BETWEEN_PROBES  1 // Z Clearance between probe points
 
 //
 // For M851 give a range for adjusting the Z probe offset

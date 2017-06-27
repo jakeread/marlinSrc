@@ -4678,7 +4678,7 @@ inline void gcode_G39() {
 
   destination[X_AXIS] = 100;
   destination[Y_AXIS] = 150;
-  destination[Z_AXIS] = 80;
+  destination[Z_AXIS] = 124;
   feedrate_mm_s = 300;
   prepare_move_to_destination();
   stepper.synchronize();
