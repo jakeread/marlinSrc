@@ -4615,11 +4615,11 @@ inline void gcode_G39() {
     stepper.synchronize();
     // going to pre-probe pt
     if(i < 2){
-      destination[X_AXIS] = prbpts[i][0] - prbLength;
+      destination[X_AXIS] = prbpts[i][0] + prbLength;
       destination[Y_AXIS] = prbpts[i][1];
     } else {
       destination[X_AXIS] = prbpts[i][0];
-      destination[Y_AXIS] = prbpts[i][1] - prbLength;
+      destination[Y_AXIS] = prbpts[i][1] + prbLength;
     }
     prepare_move_to_destination();
     stepper.synchronize();
@@ -4630,11 +4630,11 @@ inline void gcode_G39() {
     // at pre-probe height, location
     
     if(i < 2){
-      destination[X_AXIS] = prbpts[i][0] + prbLength;
+      destination[X_AXIS] = prbpts[i][0] - prbLength;
       destination[Y_AXIS] = prbpts[i][1];
     } else {
       destination[X_AXIS] = prbpts[i][0];
-      destination[Y_AXIS] = prbpts[i][1] + prbLength;
+      destination[Y_AXIS] = prbpts[i][1] - prbLength;
     }
     
     setup_for_endstop_or_probe_move(); // setup ?

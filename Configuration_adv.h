@@ -293,7 +293,7 @@
 // A dual x-carriage design has the advantage that the inactive extruder can be parked which
 // prevents hot-end ooze contaminating the print. It also reduces the weight of each x-carriage
 // allowing faster printing speeds. Connect your X2 stepper to the first unused E plug.
-#define DUAL_X_CARRIAGE
+// #define DUAL_X_CARRIAGE
 #if ENABLED(DUAL_X_CARRIAGE)
   // Configuration for second X-carriage
   // Note: the first x-carriage is defined as the x-carriage which homes to the minimum endstop;
@@ -591,7 +591,7 @@
 #define LIN_ADVANCE
 
 #if ENABLED(LIN_ADVANCE)
-  #define LIN_ADVANCE_K 35
+  #define LIN_ADVANCE_K 30
 
   /**
    * Some Slicers produce Gcode with randomly jumping extrusion widths occasionally.
@@ -670,22 +670,22 @@
 
 #if ENABLED(AUTO_AXIS_SQUARE_4POINT)
 
-  #define AAS_PRB_HGHT -3
+  #define AAS_PRB_HGHT -3.2
   #define AAS_CLR_HGHT 5
 
   #define AAS_PRB_ABOUT 5
 
-  #define AAS_PT_Y1_X -8.8
-  #define AAS_PT_Y1_Y 50
+  #define AAS_PT_Y1_X 187
+  #define AAS_PT_Y1_Y 40
   
-  #define AAS_PT_Y2_X -8.8
+  #define AAS_PT_Y2_X 187
   #define AAS_PT_Y2_Y 240
   
-  #define AAS_PT_X1_X 20
-  #define AAS_PT_X1_Y 10
+  #define AAS_PT_X1_X 30
+  #define AAS_PT_X1_Y 284
   
-  #define AAS_PT_X2_X 180
-  #define AAS_PT_X2_Y 10
+  #define AAS_PT_X2_X 154
+  #define AAS_PT_X2_Y 284
 
   #define AAS_THETA 0 // can also set this up to measure some other way, and just input measured difference here.
 
